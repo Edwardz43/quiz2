@@ -6,11 +6,11 @@ static list_ele_t *get_middle(struct list_head *list)
     struct list_head *fast = list->next, *slow;
     list_for_each(slow, list)
     {
-        if (COND1 || COND2)
+        if (fast->next == list || fast->next->next == list)
             break;
         fast = fast->next->next;
     }
-    return list_entry(TTT, list_ele_t, list);
+    return list_entry(slow, list_ele_t, list);
 }
 
 static void list_merge(struct list_head *lhs,
@@ -48,7 +48,7 @@ void list_merge_sort(queue_t *q)
     queue_t left;
     struct list_head sorted;
     INIT_LIST_HEAD(&left.list);
-    list_cut_position(&left.list, &q->list, MMM);
+    list_cut_position(&left.list, &q->list, &get_middle(&q->list)->list);
     list_merge_sort(&left);
     list_merge_sort(q);
     list_merge(&left.list, &q->list, &sorted);
