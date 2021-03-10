@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
-main
+*main
+tmp*
 
 # Object files
 *.o
